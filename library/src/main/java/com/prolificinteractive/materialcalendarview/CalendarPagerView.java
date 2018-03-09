@@ -264,21 +264,22 @@ abstract class CalendarPagerView extends ViewGroup implements View.OnClickListen
 
         int childTop = 0;
         int childLeft = parentLeft;
+        int padiing = 5;
 
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
 
-            final int width = child.getMeasuredWidth();
-            final int height = child.getMeasuredHeight();
+            final int width = child.getMeasuredWidth() - padiing;
+            final int height = child.getMeasuredHeight() - padiing;
 
             child.layout(childLeft, childTop, childLeft + height, childTop + height);
 
-            childLeft += width;
+            childLeft += width + padiing;
 
             //We should warp every so many children
             if (i % DEFAULT_DAYS_IN_WEEK == (DEFAULT_DAYS_IN_WEEK - 1)) {
-                childLeft = parentLeft;
-                childTop += height;
+                childLeft = parentLeft + padiing;
+                childTop += height + padiing;
             }
 
         }
