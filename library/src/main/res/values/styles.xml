@@ -16,5 +16,9 @@
         parent="android:TextAppearance.DeviceDefault.Small">
         <item name="android:textSize">12sp</item>
     </style>
+    <style name="TextAppearance.MaterialCalendarWidget.WeekDay.Large"
+        parent="android:TextAppearance.DeviceDefault.Large">
+        <item name="android:textSize">22sp</item>
+    </style>
 
 </resources>

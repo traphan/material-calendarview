@@ -11,6 +11,9 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:background="#ffff"
         android:layout_weight="0.7">
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView

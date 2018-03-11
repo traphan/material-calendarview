@@ -355,15 +355,15 @@ public class MaterialCalendarView extends ViewGroup {
 
             setHeaderTextAppearance(a.getResourceId(
                     R.styleable.MaterialCalendarView_mcv_headerTextAppearance,
-                    R.style.TextAppearance_MaterialCalendarWidget_Header
+                    R.style.TextAppearance_MaterialCalendarWidget_WeekDay_Large
             ));
             setWeekDayTextAppearance(a.getResourceId(
                     R.styleable.MaterialCalendarView_mcv_weekDayTextAppearance,
-                    R.style.TextAppearance_MaterialCalendarWidget_WeekDay
+                    R.style.TextAppearance_MaterialCalendarWidget_WeekDay_Large
             ));
             setDateTextAppearance(a.getResourceId(
                     R.styleable.MaterialCalendarView_mcv_dateTextAppearance,
-                    R.style.TextAppearance_MaterialCalendarWidget_Date
+                    R.style.TextAppearance_MaterialCalendarWidget_WeekDay_Large
             ));
             //noinspection ResourceType
             setShowOtherDates(a.getInteger(
