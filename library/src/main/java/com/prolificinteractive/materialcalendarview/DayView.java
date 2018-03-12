@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.RippleDrawable;
@@ -23,6 +24,8 @@ import android.widget.CheckedTextView;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView.ShowOtherDates;
 import com.prolificinteractive.materialcalendarview.format.DayFormatter;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.prolificinteractive.materialcalendarview.MaterialCalendarView.showDecoratedDisabled;
@@ -47,6 +50,10 @@ class DayView extends CheckedTextView {
     private boolean isInRange = true;
     private boolean isInMonth = true;
     private boolean isDecoratedDisabled = false;
+    private ArrayList<CalendarDay> calendarDays;
+    private int colorEventDayPoint;
+
+
     @ShowOtherDates
     private int showOtherDates = MaterialCalendarView.SHOW_DEFAULTS;
 
@@ -126,6 +133,17 @@ class DayView extends CheckedTextView {
         invalidate();
     }
 
+    public void setCalendarDays(ArrayList<CalendarDay> calendarDays) {
+        this.calendarDays = calendarDays;
+        invalidate();
+    }
+
+    public void setColorEventDayPoint(int colorEventDayPoint) {
+        this.colorEventDayPoint = colorEventDayPoint;
+//        invalidate();
+    }
+
+
     public CalendarDay getDate() {
         return date;
     }
@@ -177,8 +195,17 @@ class DayView extends CheckedTextView {
             customBackground.draw(canvas);
         }
 
+//        mCircleDrawable.setBounds(circleDrawableRect);
+        if (calendarDays != null) {
+            for (CalendarDay calendarDay : calendarDays) {
+                if(date.equals(calendarDay)) {
+                    Paint paintCircle = new Paint();
+                    paintCircle.setColor(colorEventDayPoint != 0 ? colorEventDayPoint : Color.RED);
+                    canvas.drawCircle(canvas.getHeight() - (canvas.getHeight() / 5), canvas.getWidth() / 5, canvas.getHeight()/10, paintCircle);
+                }
+            }
+        }
         mCircleDrawable.setBounds(circleDrawableRect);
-
         super.onDraw(canvas);
     }
 
@@ -240,6 +267,8 @@ class DayView extends CheckedTextView {
 
         setCustomBackground(facade.getBackgroundDrawable());
         setSelectionDrawable(facade.getSelectionDrawable());
+        setColorEventDayPoint(facade.getColorEventDayPoint());
+        setCalendarDays(facade.getCalendarDays());
 
         // Facade has spans
         List<DayViewFacade.Span> spans = facade.getSpans();

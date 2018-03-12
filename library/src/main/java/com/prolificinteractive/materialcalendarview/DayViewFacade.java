@@ -3,6 +3,7 @@ package com.prolificinteractive.materialcalendarview;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,6 +19,8 @@ public class DayViewFacade {
     private Drawable selectionDrawable = null;
     private final LinkedList<Span> spans = new LinkedList<>();
     private boolean daysDisabled = false;
+    private ArrayList<CalendarDay> calendarDays;
+    private int colorEventDayPoint;
 
     DayViewFacade() {
         isDecorated = false;
@@ -94,6 +97,12 @@ public class DayViewFacade {
         if (backgroundDrawable != null) {
             other.setBackgroundDrawable(backgroundDrawable);
         }
+        if (calendarDays != null) {
+            other.setCalendarDays(calendarDays);
+        }
+        if (colorEventDayPoint != 0) {
+            other.setColorEventDayPoint(colorEventDayPoint);
+        }
         other.spans.addAll(spans);
         other.isDecorated |= this.isDecorated;
         other.daysDisabled = daysDisabled;
@@ -109,6 +118,23 @@ public class DayViewFacade {
 
     Drawable getBackgroundDrawable() {
         return backgroundDrawable;
+    }
+
+    public ArrayList<CalendarDay> getCalendarDays() {
+        return calendarDays;
+    }
+
+    public void setCalendarDays(ArrayList<CalendarDay> calendarDays) {
+        this.calendarDays = calendarDays;
+        isDecorated = true;
+    }
+
+    public int getColorEventDayPoint() {
+        return colorEventDayPoint;
+    }
+
+    public void setColorEventDayPoint(int colorEventDayPoint) {
+        this.colorEventDayPoint = colorEventDayPoint;
     }
 
     List<Span> getSpans() {
