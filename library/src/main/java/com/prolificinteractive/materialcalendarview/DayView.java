@@ -40,19 +40,15 @@ class DayView extends CheckedTextView {
 
     private CalendarDay date;
     private int selectionColor = Color.GRAY;
-
     private final int fadeTime;
     private Drawable customBackground = null;
     private Drawable selectionDrawable;
     private Drawable mCircleDrawable;
     private DayFormatter formatter = DayFormatter.DEFAULT;
-
     private boolean isInRange = true;
     private boolean isInMonth = true;
     private boolean isDecoratedDisabled = false;
-    private ArrayList<CalendarDay> calendarDays;
-    private int colorEventDayPoint;
-
+    private ArrayList<EventDayModel> eventDayModels;
 
     @ShowOtherDates
     private int showOtherDates = MaterialCalendarView.SHOW_DEFAULTS;
@@ -133,14 +129,10 @@ class DayView extends CheckedTextView {
         invalidate();
     }
 
-    public void setCalendarDays(ArrayList<CalendarDay> calendarDays) {
-        this.calendarDays = calendarDays;
-        invalidate();
-    }
 
-    public void setColorEventDayPoint(int colorEventDayPoint) {
-        this.colorEventDayPoint = colorEventDayPoint;
-//        invalidate();
+    public void setEventDaysModel (ArrayList<EventDayModel> eventDaysModel) {
+        this.eventDayModels = eventDaysModel;
+        invalidate();
     }
 
 
@@ -195,13 +187,16 @@ class DayView extends CheckedTextView {
             customBackground.draw(canvas);
         }
 
-//        mCircleDrawable.setBounds(circleDrawableRect);
-        if (calendarDays != null) {
-            for (CalendarDay calendarDay : calendarDays) {
-                if(date.equals(calendarDay)) {
-                    Paint paintCircle = new Paint();
-                    paintCircle.setColor(colorEventDayPoint != 0 ? colorEventDayPoint : Color.RED);
-                    canvas.drawCircle(canvas.getHeight() - (canvas.getHeight() / 2), canvas.getWidth() / 5, canvas.getHeight() / 10, paintCircle);
+        if (eventDayModels != null) {
+            for (EventDayModel eventDayModel : eventDayModels) {
+                int currentEventColor = eventDayModel.getColor();
+                ArrayList<CalendarDay> calendarDays = eventDayModel.getCalendarDays();
+                for (CalendarDay calendarDay : calendarDays) {
+                    if (calendarDay.equals(date)) {
+                        Paint paintCircle = new Paint();
+                        paintCircle.setColor(currentEventColor != 0 ? currentEventColor : Color.RED);
+                        canvas.drawCircle(canvas.getHeight() - (canvas.getHeight() / 2), canvas.getWidth() / 5, canvas.getHeight() / 10, paintCircle);
+                    }
                 }
             }
         }
@@ -267,8 +262,7 @@ class DayView extends CheckedTextView {
 
         setCustomBackground(facade.getBackgroundDrawable());
         setSelectionDrawable(facade.getSelectionDrawable());
-        setColorEventDayPoint(facade.getColorEventDayPoint());
-        setCalendarDays(facade.getCalendarDays());
+        setEventDaysModel(facade.getEventDayModels());
 
         // Facade has spans
         List<DayViewFacade.Span> spans = facade.getSpans();

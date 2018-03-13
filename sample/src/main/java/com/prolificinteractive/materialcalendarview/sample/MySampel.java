@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
+import com.prolificinteractive.materialcalendarview.EventDayModel;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.prolificinteractive.materialcalendarview.sample.decorators.MySelectorDecorator;
@@ -35,8 +36,6 @@ public class MySampel extends AppCompatActivity {
         ArrayList<CalendarDay> calendarDays = new ArrayList<>();
         calendarDays.add(new CalendarDay(2018, 2, 25));
         calendarDays.add(CalendarDay.today());
-        CustomEventDayDecorator customEventDayDecorator = new CustomEventDayDecorator(calendarDays);
-        materialCalendarView.addDecorator(customEventDayDecorator);
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
@@ -45,6 +44,18 @@ public class MySampel extends AppCompatActivity {
                 widget.invalidateDecorators();
             }
         });
+        ArrayList<CalendarDay> calendarDays1 = new ArrayList<>();
+        calendarDays1.add(new CalendarDay(2018, 2, 29));
+        ArrayList<CalendarDay> calendarDays2 = new ArrayList<>();
+        calendarDays2.add(new CalendarDay(2018, 2, 26));
+        ArrayList<CalendarDay> calendarDays3 = new ArrayList<>();
+        calendarDays3.add(new CalendarDay(2018, 2, 22));
+        ArrayList<EventDayModel> eventDayModels = new ArrayList<>();
+        eventDayModels.add(new EventDayModel(calendarDays, Color.RED));
+        eventDayModels.add(new EventDayModel(calendarDays1, Color.GREEN));
+        eventDayModels.add(new EventDayModel(calendarDays2, Color.YELLOW));
+        eventDayModels.add(new EventDayModel(calendarDays3, Color.BLACK));
+        materialCalendarView.addDecorator(new EventDaysModelDecorator(eventDayModels));
         materialCalendarView.invalidateDecorators();
     }
 
@@ -98,13 +109,12 @@ public class MySampel extends AppCompatActivity {
         }
     }
 
+    public class EventDaysModelDecorator implements DayViewDecorator {
 
-    public class CustomEventDayDecorator implements DayViewDecorator {
+        ArrayList<EventDayModel> eventDayModels;
 
-        private ArrayList<CalendarDay> calendarDays;
-
-        public CustomEventDayDecorator(ArrayList<CalendarDay> calendarDays) {
-            this.calendarDays = calendarDays;
+        public EventDaysModelDecorator(ArrayList<EventDayModel> eventDayModels) {
+            this.eventDayModels = eventDayModels;
         }
 
         @Override
@@ -114,8 +124,7 @@ public class MySampel extends AppCompatActivity {
 
         @Override
         public void decorate(DayViewFacade view) {
-            view.setColorEventDayPoint(Color.GREEN);
-            view.setCalendarDays(calendarDays);
+            view.setEventDayModels(eventDayModels);
         }
     }
 
