@@ -355,7 +355,7 @@ public class MaterialCalendarView extends ViewGroup {
 
             setHeaderTextAppearance(a.getResourceId(
                     R.styleable.MaterialCalendarView_mcv_headerTextAppearance,
-                    R.style.TextAppearance_MaterialCalendarWidget_WeekDay_Large
+                    R.style.TextAppearance_MaterialCalendarWidget_Titel_Large
             ));
             setWeekDayTextAppearance(a.getResourceId(
                     R.styleable.MaterialCalendarView_mcv_weekDayTextAppearance,

@@ -4,7 +4,9 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.util.TypedValue;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 /**
  * An {@linkplain android.widget.ImageView} to pragmatically set the color of arrows
@@ -14,8 +16,9 @@ class DirectionButton extends ImageView {
 
     public DirectionButton(Context context) {
         super(context);
-
+//        setLayoutParams(new ViewGroup.LayoutParams(150, 150));
         setBackgroundResource(getThemeSelectableBackgroundId(context));
+//        setLayoutParams(new ViewGroup.LayoutParams(150, 150));
     }
 
     public void setColor(int color) {
