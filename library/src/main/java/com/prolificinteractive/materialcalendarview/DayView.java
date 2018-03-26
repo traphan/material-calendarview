@@ -49,6 +49,7 @@ class DayView extends CheckedTextView {
     private boolean isInMonth = true;
     private boolean isDecoratedDisabled = false;
     private ArrayList<EventDayModel> eventDayModels;
+    private EventDay eventDay;
 
     @ShowOtherDates
     private int showOtherDates = MaterialCalendarView.SHOW_DEFAULTS;
@@ -135,6 +136,10 @@ class DayView extends CheckedTextView {
         invalidate();
     }
 
+    public void setEventDay(EventDay eventDay) {
+        this.eventDay = eventDay;
+        invalidate();
+    }
 
     public CalendarDay getDate() {
         return date;
@@ -195,9 +200,16 @@ class DayView extends CheckedTextView {
                     if (calendarDay.equals(date)) {
                         Paint paintCircle = new Paint();
                         paintCircle.setColor(currentEventColor != 0 ? currentEventColor : Color.RED);
-                        canvas.drawCircle(canvas.getHeight() / 5, canvas.getWidth() / 5, canvas.getHeight() / 10, paintCircle);
+                        canvas.drawCircle(canvas.getHeight() / 5, canvas.getWidth() / 5, canvas.getHeight() / 12 , paintCircle);
                     }
                 }
+            }
+        }
+        if (eventDay != null) {
+            if (eventDay.getCalendarDay().equals(date)) {
+                Paint paintCircle = new Paint();
+                paintCircle.setColor(eventDay.getColor() != 0 ? eventDay.getColor() : Color.RED);
+                canvas.drawCircle(canvas.getHeight() / 5, canvas.getWidth() / 5, canvas.getHeight() / 12, paintCircle);
             }
         }
         mCircleDrawable.setBounds(circleDrawableRect);
@@ -263,7 +275,7 @@ class DayView extends CheckedTextView {
         setCustomBackground(facade.getBackgroundDrawable());
         setSelectionDrawable(facade.getSelectionDrawable());
         setEventDaysModel(facade.getEventDayModels());
-
+        setEventDay(facade.getEventDayModel());
         // Facade has spans
         List<DayViewFacade.Span> spans = facade.getSpans();
         if (!spans.isEmpty()) {

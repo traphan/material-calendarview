@@ -20,6 +20,7 @@ public class DayViewFacade {
     private final LinkedList<Span> spans = new LinkedList<>();
     private boolean daysDisabled = false;
     private ArrayList<EventDayModel> eventDayModels;
+    private EventDay eventDayModel;
 
     DayViewFacade() {
         isDecorated = false;
@@ -99,6 +100,9 @@ public class DayViewFacade {
         if(eventDayModels != null) {
             other.setEventDayModels(eventDayModels);
         }
+        if(eventDayModel != null) {
+            other.setEventDayModel(eventDayModel);
+        }
         other.spans.addAll(spans);
         other.isDecorated |= this.isDecorated;
         other.daysDisabled = daysDisabled;
@@ -122,6 +126,15 @@ public class DayViewFacade {
 
     public void setEventDayModels(ArrayList<EventDayModel> eventDayModels) {
         this.eventDayModels = eventDayModels;
+        isDecorated = true;
+    }
+
+    public EventDay getEventDayModel() {
+        return eventDayModel;
+    }
+
+    public void setEventDayModel(EventDay eventDayModel) {
+        this.eventDayModel = eventDayModel;
         isDecorated = true;
     }
 
