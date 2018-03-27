@@ -206,7 +206,7 @@ class DayView extends CheckedTextView {
             }
         }
         if (date != null && eventDay != null) {
-            if (eventDay.getCalendarDay().equals(date)) {
+            if (!eventDay.isDayNull() && eventDay.getCalendarDay().equals(date)) {
                 Paint paintCircle = new Paint();
                 paintCircle.setColor(eventDay.getColor() != 0 ? eventDay.getColor() : Color.RED);
                 canvas.drawCircle(canvas.getHeight() / 5, canvas.getWidth() / 5, canvas.getHeight() / 12, paintCircle);

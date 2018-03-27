@@ -31,4 +31,8 @@ public class EventDay {
     public void setColor(int color) {
         this.color = color;
     }
+
+    public boolean isDayNull() {
+        return calendarDay == null ? true : false;
+    }
 }
