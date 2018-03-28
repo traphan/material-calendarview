@@ -179,6 +179,7 @@ public class MaterialCalendarView extends ViewGroup {
     private CalendarDay currentMonth;
     private LinearLayout topbar;
     private CalendarMode calendarMode;
+    private int padding_top = 15;
     /**
      * Used for the dynamic calendar height.
      */
@@ -426,6 +427,14 @@ public class MaterialCalendarView extends ViewGroup {
         titleChanger.change(currentMonth);
         buttonPast.setEnabled(canGoBack());
         buttonFuture.setEnabled(canGoForward());
+    }
+
+    public int getPadding_top() {
+        return padding_top;
+    }
+
+    public void setPadding_top(int padding_top) {
+        this.padding_top = padding_top;
     }
 
     /**
@@ -1700,7 +1709,8 @@ public class MaterialCalendarView extends ViewGroup {
         final int parentLeft = getPaddingLeft();
         final int parentWidth = right - left - parentLeft - getPaddingRight();
 
-        int childTop = getPaddingTop();
+        //margin top
+        int childTop = getPaddingTop() - padding_top;
 
         for (int i = 0; i < count; i++) {
             final View child = getChildAt(i);
